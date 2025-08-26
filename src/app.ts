@@ -1,18 +1,16 @@
 import express from "express";
+import cors from "cors";
+import morgan from "morgan";
 
 const app = express();
-import authRoutes from "./routes/authRoutes"; // Add this line
+import authRoutes from "./routes/authRoutes";
 
+// Middleware - Order matters!
+app.use(cors()); // Enable CORS for all routes
+app.use(morgan("dev")); // Log HTTP requests for debugging
+app.use(express.json()); // Parse JSON request bodies
 
-app.use(express.json());
-
+// Routes
 app.use("/api/auth", authRoutes);
-
-// Future route mounting examples:
-// app.use("/api/users", userRoutes);
-// app.use("/api/products", productRoutes);
-// app.use("/api/authors", authorRoutes);
-// app.use("/api/categories", categoryRoutes);
-
 
 export default app;
